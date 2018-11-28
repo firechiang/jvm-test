@@ -4,10 +4,13 @@
 ```bash
 -Xmx20m                           #最大堆大小
 -Xms5m                            #初始堆大小
--XX:+UseSerialGC                  #串行垃圾回收器
 -XX:+PrintGC                      #打印GC日期
+-XX:+PrintHeapAtGC                #GC前后都会将GC堆的概要状况输出到log中
 -XX:+PrintGCDetails               #打印GC详细信息
 -XX:+PrintCommandLineFlags        #打印虚拟机参数
+
+-XX:+UseSerialGC                  #串行垃圾回收器
+-XX:+UseG1GC                      #G1垃圾回收器，https://tech.meituan.com/g1.html
 ```
 ####
 不同的堆分配，对系统的执行会有一定的影响，应该根据系统的情况合理的配置；
@@ -28,9 +31,35 @@ Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
 -XX:+HeapDumpOnOutOfMemoryError   #内存溢出时导出整个堆信息
 -XX:HeapDumpPath=d:/Test03.dump   #内存溢出时导出整个堆信息存放的地址
 ```
-#####
+####
 ```bash
 -Xss1m                            #线程最大栈空间
+```
+####
+一般对象首次创建会被放置在新生代的 eden 区，如果没有GC的介入，则对象不会离开 eden 区。只有对象的年龄达到一定的大小，才会进入老年代，
+对象的年龄是由经历GC次数决定的，在新生代每次GC之后如果对象没有被回收则年龄加1，虚拟机由提供参数来控制新生代最大年龄，当超过这个年龄
+范围就会晋升老年代。
+```bash
+-XX:MaxTenuringThreshold=15       #新生代最大年龄，默认15
+```
+####
+TLAB全称是Thread Local Allocation Buffer即线程本地分配缓存，就是线程专用的内存分配区域，为了加速对象分配而生。每一个线程都会产生一个TLAB，该线程独享的工作区域，java虚拟机使用这种TLAB区来避免多线程冲突问题，提高内存分配效率，TLAB一般不会太大，当大对象无法在TLAB分配时，则直接分配在堆上。
+（TLAB空间参数一般不需要调整，看实际情况）
+```bash
+-XX:PretenureSizeThreshold=100    #对象超过多大直接进入老年代（单位K），一般是一个新生对象太大而 eden 区装不下，直接进入老年代。（但是要注意TLAB区域优先分配空间）
+-XX:+UseTLAB                      #启用 TLAB（默认已启用）
+-XX:TLABSize=10                   #设置TLAB大小
+-XX:TLABRefillWasteFraction=64    #设置进入TLAB空间单个对象的最大值，它是一个比例值，默认64，即对象大于整个空间的1/64，则在堆创建对象
+-XX:+ResizeTLAB                   #启用自动调整 TLABRefillWasteFraction 阈值
+-XX:+PrintTLAB                    #启用打印 TLAB 信息
+```
+#### 对象创建内存分配流程
+```bash
+对象创建  --> 尝试栈上分配  ——（失败）——> 尝试TLAB分配  ——（失败）——> 是否进入老年代  ——（失败）——> eden分配
+                  |                        |                        |
+                                       （满足）                                               （满足）                                                （满足）
+                  |                        |                        |
+                                          栈分配                                                 TLAB分配                                             老年代分配
 ```
 ## GC算法
 #### 引用计数法：
@@ -43,6 +72,8 @@ Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
 #### 标记压缩法：
 标记压缩法在标记清除法之上做了优化，把存活的对象压缩到内存的一端，而后进行垃圾清理。
 （java老年代使用的就是标记压缩法）
-```bash
-
-```
+#### 分代算法：
+根据对象的特点把内存分成N块，而后根据每块内存的特点使用不同的算法。
+对于新生代和老年代来说，新生代回收频率很高，但是每次回收耗时很短，而老年代回收频率较低，但耗时较长，所以尽量减少老年代的GC。
+#### 分区算法：
+将内存分为N多个独立的小空间，每个小空间都可以独立使用，这样细粒度的控制回收，而不对整个内存进行GC，从而提升性能，并减少GC的停顿时间。

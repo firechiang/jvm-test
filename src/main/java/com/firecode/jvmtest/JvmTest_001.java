@@ -7,6 +7,7 @@ package com.firecode.jvmtest;
  * -XX:+PrintGC                    #打印GC日期
  * -XX:+PrintGCDetails             #打印GC详细信息
  * -XX:+PrintCommandLineFlags      #打印虚拟机参数
+ * -XX:+PrintHeapAtGC              #GC前后都会将GC堆的概要状况输出到log中
  * 
  * 总结：
  * 在实际应用中可以将初始堆大小和最大堆大小设置相等，这样可以减少程序运行时垃圾回收次数，从而提高效率。
