@@ -1,0 +1,39 @@
+Thread 0xffe2ce40
+
+  locals:
+
+Thread 0xffe21418
+
+  locals:
+
+Thread 0xffe2cfb8
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.ref.ReferenceQueue.remove(J)Ljava/lang/ref/Reference; (Unknown Source)
+  at java.lang.ref.ReferenceQueue.remove()Ljava/lang/ref/Reference; (Unknown Source)
+  at java.lang.ref.Finalizer$FinalizerThread.run()V (Unknown Source)
+
+  locals:
+    objectId=0xffe15b48, line=1
+    objectId=0xffe15b68, line=1
+    objectId=0xffe15b48, line=2
+    objectId=0xffe2cfb8, line=3
+    objectId=0xffe25058, line=3
+
+Thread 0xffe21618
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.Object.wait()V (Unknown Source)
+  at java.lang.ref.Reference.tryHandlePending(Z)Z (Unknown Source)
+  at java.lang.ref.Reference$ReferenceHandler.run()V (Unknown Source)
+
+  locals:
+    objectId=0xffe21790, line=1
+    objectId=0xffe21790, line=2
+    objectId=0xffe21618, line=3
+
+Thread 0xffe34500
+  at java.lang.OutOfMemoryError.<init>()V (Unknown Source)
+  at com.firecode.jvmtest.JvmTest_002.main([Ljava/lang/String;)V (JvmTest_002.java:33)
+
+  locals:
+    objectId=0xffe34438, line=1
+
