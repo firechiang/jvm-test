@@ -24,10 +24,10 @@
 ```
 #####
 ```bash
--XX:+HeapDumpOnOutOfMemoryError    #内存溢出时导出整个堆信息
--XX:HeapDumpPath=d:/Test03.dump    #内存溢出时导出整个堆信息存放的地址
+-XX:+HeapDumpOnOutOfMemoryError   #内存溢出时导出整个堆信息
+-XX:HeapDumpPath=d:/Test03.dump   #内存溢出时导出整个堆信息存放的地址
 ```
 #####
 ```bash
--Xss1m                           #线程最大栈空间
+-Xss1m                            #线程最大栈空间
 ```
