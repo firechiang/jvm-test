@@ -23,6 +23,7 @@
 -XX:+PrintGCDetails               #打印GC详细信息
 ```
 #####
+Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
 ```bash
 -XX:+HeapDumpOnOutOfMemoryError   #内存溢出时导出整个堆信息
 -XX:HeapDumpPath=d:/Test03.dump   #内存溢出时导出整个堆信息存放的地址
