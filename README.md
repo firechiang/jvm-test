@@ -17,13 +17,10 @@
  尽可能的将对象预留在新生代，减少老年代的GC次数（原因：老年代的GC是 "Full GC"（全面GC） 会造成系统停顿，假死）；
    除了可以设置新生代绝对大小（-Xmn），还可以使用（-XX:NewRatio）设置老年代和新生代的比列。
 ```bash
--Xmx20m                           #最大堆大小
--Xms20m                           #初始堆大小
+-Xss1m                            #线程最大栈空间
 -Xmn1m                            #初始新生代大小（和 -XX:NewRatio 配置选其中一个），新生代的大小影响老年代大小：堆 = 新生代 + 老年代；这个参数对应用GC影响很大（可以减少GC的次数），一般设置为整个堆空间的1/3或1/4
 -XX:NewRatio=2                    #老年代和新生代比列 ，这里就是 老年代 是新生代的两倍
 -XX:SurvivorRatio=2               #新生代里面的比例配置  （eden = 2） = （form=1） + （to=1）
--XX:+UseSerialGC                  #串行垃圾回收器
--XX:+PrintGCDetails               #打印GC详细信息
 ```
 ####
 Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
@@ -32,21 +29,17 @@ Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
 -XX:HeapDumpPath=d:/Test03.dump   #内存溢出时导出整个堆信息存放的地址
 ```
 ####
-```bash
--Xss1m                            #线程最大栈空间
-```
-####
 一般对象首次创建会被放置在新生代的 eden 区，如果没有GC的介入，则对象不会离开 eden 区。只有对象的年龄达到一定的大小，才会进入老年代，
 对象的年龄是由经历GC次数决定的，在新生代每次GC之后如果对象没有被回收则年龄加1，虚拟机由提供参数来控制新生代最大年龄，当超过这个年龄
 范围就会晋升老年代。
 ```bash
 -XX:MaxTenuringThreshold=15       #新生代最大年龄，默认15
+-XX:PretenureSizeThreshold=100    #对象超过多大直接进入老年代（单位K），一般是一个新生对象太大而 eden 区装不下，直接进入老年代。（但是要注意TLAB区域优先分配空间，TLAB说明看下面）
 ```
 ####
 TLAB全称是Thread Local Allocation Buffer即线程本地分配缓存，就是线程专用的内存分配区域，为了加速对象分配而生。每一个线程都会产生一个TLAB，该线程独享的工作区域，java虚拟机使用这种TLAB区来避免多线程冲突问题，提高内存分配效率，TLAB一般不会太大，当大对象无法在TLAB分配时，则直接分配在堆上。
 （TLAB空间参数一般不需要调整，看实际情况）
 ```bash
--XX:PretenureSizeThreshold=100    #对象超过多大直接进入老年代（单位K），一般是一个新生对象太大而 eden 区装不下，直接进入老年代。（但是要注意TLAB区域优先分配空间）
 -XX:+UseTLAB                      #启用 TLAB（默认已启用）
 -XX:TLABSize=10                   #设置TLAB大小
 -XX:TLABRefillWasteFraction=64    #设置进入TLAB空间单个对象的最大值，它是一个比例值，默认64，即对象大于整个空间的1/64，则在堆创建对象
