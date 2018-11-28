@@ -22,3 +22,12 @@
 -XX:+UseSerialGC                  #串行垃圾回收器
 -XX:+PrintGCDetails               #打印GC详细信息
 ```
+#####
+```bash
+-XX:+HeapDumpOnOutOfMemoryError    #内存溢出时导出整个堆信息
+-XX:HeapDumpPath=d:/Test03.dump    #内存溢出时导出整个堆信息存放的地址
+```
+#####
+```bash
+-Xss1m                           #线程最大栈空间
+```
