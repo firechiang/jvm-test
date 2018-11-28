@@ -40,11 +40,12 @@ Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
 TLAB全称是Thread Local Allocation Buffer即线程本地分配缓存，就是线程专用的内存分配区域，为了加速对象分配而生。每一个线程都会产生一个TLAB，该线程独享的工作区域，java虚拟机使用这种TLAB区来避免多线程冲突问题，提高内存分配效率，TLAB一般不会太大，当大对象无法在TLAB分配时，则直接分配在堆上。
 （TLAB空间参数一般不需要调整，看实际情况）
 ```bash
--XX:+UseTLAB                      #启用 TLAB（默认已启用）
+-XX:+UseTLAB                      #启用 TLAB（启用有助于提高性能，默认已启用）
 -XX:TLABSize=10                   #设置TLAB大小
 -XX:TLABRefillWasteFraction=64    #设置进入TLAB空间单个对象的最大值，它是一个比例值，默认64，即对象大于整个空间的1/64，则在堆创建对象
 -XX:+ResizeTLAB                   #启用自动调整 TLABRefillWasteFraction 阈值
 -XX:+PrintTLAB                    #启用打印 TLAB 信息
+-XX:-DoEscapeAnalysis             #禁用（逃逸分析，开启有助于提高性能，默认开启），要想打印 TLAB 信息，需禁用
 ```
 #### 对象创建内存分配流程
 ```bash
