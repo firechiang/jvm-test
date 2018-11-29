@@ -1,4 +1,4 @@
-## JVM基本结构
+## JVM 基本结构
 ```bash
  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _          _ _ _ _ _ _ _ _ _ _ 
 |                                                    |       |                   |
@@ -42,7 +42,7 @@
 -XX:SurvivorRatio=2               #新生代里面的比例配置  （eden = 2） = （form=1） + （to=1）
 ```
 ####
-Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）
+Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）。推荐使用  VisualVM （Java性能监控工具）。
 ```bash
 -XX:+HeapDumpOnOutOfMemoryError   #内存溢出时导出整个堆信息
 -XX:HeapDumpPath=d:/Test03.dump   #内存溢出时导出整个堆信息存放的地址
