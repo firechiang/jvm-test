@@ -30,6 +30,8 @@
 
 -XX:+UseSerialGC                  #串行垃圾回收器
 -XX:+UseG1GC                      #G1垃圾回收器，https://tech.meituan.com/g1.html
+-XX:+UseParNewGC                  #新生代并发收集器，一般与CMS配个使用
+-XX:+UseConcMarkSweepGC           #CMS收集器，回收老年代，标记清除法的实现，缺点：内存空间碎片问题，垃圾回收后的空间不是连续的，当再分配大对象时，因为没有连续的空间分配，会出现Full GC
 ```
 ####
 不同的堆分配，对系统的执行会有一定的影响，应该根据系统的情况合理的配置；
