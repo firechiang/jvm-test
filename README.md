@@ -32,7 +32,7 @@
 -XX:+UseG1GC                      #一步步图解G1：https://mp.weixin.qq.com/s/ZwlT89vsvD2e0qEuxZto3Q；详解：https://tech.meituan.com/g1.html
 -XX:+UseParNewGC                  #ParNew是Serial收集器的多线程版本（新生代并发收集器）。Server模式下默认新生代收集器，除了Serial收集器之外，一般与CMS配个使用
 -XX:+UseConcMarkSweepGC           #CMS收集器，回收老年代，标记清除法的实现，缺点：内存空间碎片问题，垃圾回收后的空间不是连续的，当再分配大对象时，因为没有连续的空间分配，会出现Full GC
--XX:MaxGCPauseMillis=200          #设置期望达到的最大GC停顿时间指标（JVM会尽力实现，但不保证达到），年轻代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值
+-XX:MaxGCPauseMillis=200          #设置期望最大GC停顿时间(配合G1使用)（JVM会尽力实现，但不保证达到），年轻代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值
 -XX:+UseAdaptiveSizePolicy        #（配合和"设置了年轻代垃圾回收最长时间"，一起使用，不兼容CMS）并行收集器会自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等，此值建议使用并行收集器时，一直打开
 ```
 ####
