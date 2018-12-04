@@ -49,7 +49,7 @@
 -XX:+UseAdaptiveSizePolicy             #（配合和"设置期望最大GC停顿时间"，一起使用，不兼容CMS）并行收集器会自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等，此值建议使用并行收集器时，一直打开
 -XX:+UseFastAccessorMethods            #get/set方法转成本地代码
 -XX:+AggressiveOpts                    #启用这个参数，则每当JDK版本升级时，JVM都会使用最新加入的优化技术
--XX:+DisableExplicitGC                 #启用禁止手动GC（System.gc）
+-XX:+DisableExplicitGC                 #禁用立即GC（System.gc），将GC全面交由垃圾收集器管理
 -XX:+CMSScavengeBeforeRemark           #（看情况使用）如果remark还是过长的话，强制remark之前开始一次minor gc，减少remark的暂停时间，但是在remark之后也将立即开始又一次minor gc
 -XX:ParallelGCThreads=2                #（看情况使用）设置年轻代的并行收集线程数，默认是(cpu <= 8) ? cpu : 3 + ((cpu * 5) / 8)
 
