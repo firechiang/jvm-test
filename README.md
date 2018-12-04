@@ -33,6 +33,7 @@
 -XX:+PrintHeapAtGC                     #GC前后都会将GC堆的概要状况输出到log中
 -XX:+PrintGCDetails                    #打印GC详细信息
 -XX:+PrintCommandLineFlags             #打印虚拟机参数
+-Xloggc:d:/Test04.log                  #GC日志打印到文件
 
 -XX:+UseSerialGC                       #串行垃圾回收器
 
