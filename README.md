@@ -121,3 +121,13 @@ TLAB全称是Thread Local Allocation Buffer即线程本地分配缓存，就是�
 对于新生代和老年代来说，新生代回收频率很高，但是每次回收耗时很短，而老年代回收频率较低，但耗时较长，所以尽量减少老年代的GC。
 #### 分区算法：
 将内存分为N多个独立的小空间，每个小空间都可以独立使用，这样细粒度的控制回收，而不对整个内存进行GC，从而提升性能，并减少GC的停顿时间。
+
+## 强引用、软引用、弱引用、虚引用的概念
+#### 强引用（StrongReference）
+强引用就是指在程序代码之中普遍存在的，比如下面这段代码中的object和str都是强引用：Object object = new Object();
+只要某个对象有强引用与之关联，JVM必定不会回收这个对象，即使在内存不足的情况下，JVM宁愿抛出OutOfMemory错误也不会回收这种对象。
+#### 软引用（SoftReference）
+软引用是用来描述一些有用但并不是必需的对象，在Java中用java.lang.ref.SoftReference类来表示。对于软引用关联着的对象，只有在内存不足的时候JVM才会回收该对象。因此，这一点可以很好地用来解决OOM的问题，并且这个特性很适合用来实现缓存：比如网页缓存、图片缓存等。
+软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被JVM回收，这个软引用就会被加入到与之关联的引用队列中。下面是一个使用示例：
+SoftReference<String> sr = new SoftReference<String>(new String("hello"));
+System.out.println(sr.get());
