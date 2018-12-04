@@ -92,7 +92,7 @@ Eclipse插件 Mat，内存溢出分析工具（可分析 Test03.dump 文件）�
 -XX:PretenureSizeThreshold=100         #对象超过多大直接进入老年代（单位K），一般是一个新生对象太大而 eden 区装不下，直接进入老年代。（但是要注意TLAB区域优先分配空间，TLAB说明看下面）
 ```
 ####
-TLAB全称是Thread Local Allocation Buffer即线程本地分配缓存，就是线程专用的内存分配区域，为了加速对象分配而生。每一个线程都会产生一个TLAB，该线程独享的工作区域，java虚拟机使用这种TLAB区来避免多线程冲突问题，提高内存分配效率，TLAB一般不会太大，当大对象无法在TLAB分配时，则直接分配在堆上。
+TLAB全称是Thread Local Allocation Buffer（栈上分配）即线程本地分配缓存，就是线程专用的内存分配区域，为了加速对象分配而生。每一个线程都会产生一个TLAB，该线程独享的工作区域，java虚拟机使用这种TLAB区来避免多线程冲突问题，提高内存分配效率，TLAB一般不会太大，当大对象无法在TLAB分配时，则直接分配在堆上。
 （TLAB空间参数一般不需要调整，看实际情况）
 ```bash
 -XX:+UseTLAB                           #启用 TLAB（启用有助于提高性能，默认已启用）
