@@ -30,7 +30,7 @@
 
 -XX:+UseSerialGC                    #串行垃圾回收器
 
--XX:+UseG1GC                        #一步步图解G1：https://mp.weixin.qq.com/s/ZwlT89vsvD2e0qEuxZto3Q；详解：https://tech.meituan.com/g1.html
+-XX:+UseG1GC                        #G1垃圾收集器，一步步图解G1：https://mp.weixin.qq.com/s/ZwlT89vsvD2e0qEuxZto3Q；详解：https://tech.meituan.com/g1.html
 
 -XX:+UseParNewGC                    #ParNew是Serial收集器的多线程版本（新生代并发收集器）。Server模式下默认新生代收集器，除了Serial收集器之外，一般与CMS配个使用
 
