@@ -50,7 +50,7 @@
 -XX:+UseFastAccessorMethods            #get/set方法转成本地代码
 -XX:+AggressiveOpts                    #启用这个参数，则每当JDK版本升级时，JVM都会使用最新加入的优化技术
 -XX:+DisableExplicitGC                 #禁用立即GC（System.gc），将GC全面交由垃圾收集器管理
--XX:+ExplicitGCInvokesConcurrent       #当调用System.gc()的时候， 执行并行gc。默认是禁用的（看情况使用）
+-XX:+ExplicitGCInvokesConcurrent       #（看情况使用）当调用System.gc()的时候， 执行并行gc。默认是禁用的
 -XX:+CMSScavengeBeforeRemark           #（看情况使用）如果remark还是过长的话，强制remark之前开始一次minor gc，减少remark的暂停时间，但是在remark之后也将立即开始又一次minor gc
 -XX:ParallelGCThreads=2                #（看情况使用）设置年轻代的并行收集线程数，默认是(cpu <= 8) ? cpu : 3 + ((cpu * 5) / 8)
 
