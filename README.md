@@ -32,7 +32,7 @@
 
 -XX:+UseG1GC                           #G1垃圾收集器，一步步图解G1：https://mp.weixin.qq.com/s/ZwlT89vsvD2e0qEuxZto3Q；详解：https://tech.meituan.com/g1.html
 
--XX:+UseParNewGC                       #ParNew是Serial收集器的多线程版本（新生代并发收集器）。Server模式下默认新生代收集器，除了Serial收集器之外，一般与CMS配个使用
+-XX:+UseParNewGC                       #ParNew是Serial收集器的多线程版本（新生代并发收集器）。Server模式下默认新生代收集器，除了Serial收集器之外，一般与CMS或G1配个使用
 
 -XX:+UseConcMarkSweepGC                #CMS收集器，回收老年代，标记清除法的实现，缺点：内存空间碎片问题，垃圾回收后的空间不是连续的，当再分配大对象时，因为没有连续的空间分配，会出现Full GC
 -XX:+CMSParallelRemarkEnabled          #减少第二次暂停的时间，开启并行 remark
