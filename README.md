@@ -43,7 +43,7 @@
 
 -XX:MaxGCPauseMillis=200            #设置期望最大GC停顿时间(配合G1使用)（JVM会尽力实现，但不保证达到），年轻代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值
 -XX:LargePageSizeInBytes=128m       #内存分页大小对性能的提升
-java -Djava.awt.headless=true       #开启Headless模式（缺少显示屏模式）
+-Djava.awt.headless=true            #开启Headless模式（缺少显示屏模式）
 ```
 ####
 不同的堆分配，对系统的执行会有一定的影响，应该根据系统的情况合理的配置；
