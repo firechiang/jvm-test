@@ -103,6 +103,7 @@ TLAB全称是Thread Local Allocation Buffer（栈上分配）即线程本地分�
 -XX:+ResizeTLAB                        #启用自动调整 TLABRefillWasteFraction 阈值
 -XX:+PrintTLAB                         #启用打印 TLAB 信息
 -XX:-DoEscapeAnalysis                  #禁用（逃逸分析，开启有助于提高性能，默认开启），要想打印 TLAB 信息，需禁用
+-XX:+EliminateAllocations              #开启标量替换（允许将对象打撒在分配的栈上）（默认开启）
 ```
 #### 对象创建内存分配流程
 ```bash
