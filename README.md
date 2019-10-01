@@ -1,3 +1,4 @@
+## [查看JVM运行时相关信息命令简单使用][1]
 ## JVM 基本结构
 ```bash
  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _          _ _ _ _ _ _ _ _ _ _ 
@@ -23,6 +24,16 @@
 -                                      #标准参数，所有JVM都应该支持
 -X                                     #非标，每个JVM实现有所不同
 -XX                                    #不稳定参数，下个版本可能会取消
+```
+####
+JVM代码执行模式
+ - -Xint(解析执行)
+ - -Xcomp(第一次使用就编译成本地代码(注意：这个模式第一次执行效率较低))
+ - -Xmixed(混合模式，JVM自己决定是否编译成本地代码(注意：这个也是默认模式))
+```bash
+$ java -Xint -version                  #以解析模式执行java代码
+$ java -Xcomp -version                 #以编译成本地代码模式执行java代码
+$ java -Xmixed -version                #以混合模式模式执行java代码（默认模式）
 ```
 ####
 在实际应用中可以将初始堆大小和最大堆大小设置相等，这样可以减少程序运行时垃圾回收次数，从而提高效率。
@@ -163,3 +174,5 @@ PhantomReference<String> pr = new PhantomReference<String>(new String("hello"), 
 System.out.println(pr.get());
 ```
 要注意的是，虚引用必须和引用队列关联使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之 关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。
+
+[1]: https://github.com/firechiang/jvm-test/tree/master/docs/jvm-show-params.md
